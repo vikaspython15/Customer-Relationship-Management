@@ -1,0 +1,95 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<!-- <form method='post'>
+    {% csrf_token %} {{form.as_p}}
+    <button type="submit">Submit</button>
+</form> -->
+<!-- <script src={% static '/jquery.js' %}></script> -->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6" style="background:url('https://images.pexels.com/photos/5474285/pexels-photo-5474285.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940');background-size: 100% 100%;">
+            <div class='h=100' style="background:rgba(0,0,0,0.5);"></div>
+        </div>
+        <div class="col-md-6 bg-light">
+            <h3 class="text-center">Sign Up Here</h3>
+            <form action="" method="post">
+                {% csrf_token %}
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="">First Name</label>
+                            <input type="text" class="form-control" placeholder="First Name" name='fname'>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Last Name</label>
+                            <input type="text" class="form-control" placeholder="Last Name" name='lname'>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <p id="result"></p>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Username</label>
+                    <input type="text" class="form-control" placeholder="Username" name='username' id='username' onkeyup="checkuser()">
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="">Email Id</label>
+                    <input type="email" class="form-control" placeholder="Email Id" name='email'>
+                </div>
+
+                <div class="form-group mb-3">
+                    <label for="">Password</label>
+                    <input type="password" class="form-control" placeholder="Password" name='password'>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Contact</label>
+                    <input type="number" class="form-control" placeholder="Contact No" name='contact'>
+                </div>
+                <div class="form-group mb-3">
+                    <label for="">Select Department</label>
+                    <select name="dept" id="" class="form-control">
+                        <option value="manager">Manager</option>
+                        <option value="trainer">Trainer</option>
+                        <option value="counsellor">Counsellor</option>
+                        <option value="hr">HR</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+
+                <div class="form-group mb-3">
+                    <button type="submit" class="btn btn-success" id="submitbtn">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function checkuser() {
+        let uname = document.getElementById('username').value;
+        $.ajax({
+            url: "{% url 'check_user' %}",
+            type: "get",
+            data: {
+                user_name: uname
+            },
+            success: function(data) {
+                if (data == "Exist") {
+                    $("#result").html("User Already Exist").addClass("text-danger");
+                    $("#username").addClass("alert alert-danger");
+                    $("#submitbtn").attr("disabled", "disabled");
+                } else {
+                    $("#result").html("")
+                    $("#username").removeClass("alert alert-danger");
+                    $("#submitbtn").removeAttr("disabled");
+                }
+            }
+        })
+    }
+</script>
+{% if status %}
+<script>
+    alert("{{status}}");
+    window.location = "/";
+</script>
+{% endif %} {% endblock content %}

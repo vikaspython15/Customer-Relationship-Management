@@ -1,0 +1,97 @@
+{% extends 'dashboard_base.html' %} {% load static %} {% block dashboard %}
+
+<div class="container py-2">
+    <h3 class="text-center">Edit Profile - {{user.first_name}} {{user.last_name}}</h3>
+    <div class="row py-3">
+        <div class="col-md-6 mx-auto bg-light">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %} {% if status %}
+                <div class="alert alert-primary">{{status}}</div>
+                {% endif %}
+                <div class="text-center mb-3">
+                    {% if data.profile_pic %}
+                    <img src="/media/{{data.profile_pic}}" style="height:100px; width: 100px; border-radius:10%;">
+                    {% else %}
+                    <img src="{% static '/images/noimg.jpg' %}" style="height:100px; width: 100px; border-radius:10%;">
+                    {% endif %}
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
+                            <input type="text" name="fname" class="form-control" value={{user.first_name}}>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Last Name</label>
+                            <input type="text" name="lname" class="form-control" value={{user.last_name}}>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                            <input type="email" name="email" class="form-control" value={{user.email}}>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Contact No</label>
+                            <input type="text" name="contact" class="form-control" value={{data.contact}}>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Age</label>
+                            <input type="number" name="age" class="form-control" value={{data.age}}>
+                        </div>
+                        <div class="col-md-6">
+                            <label>City</label>
+                            <input type="text" name="city" class="form-control" value={{data.city}}>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Gender</label>
+                            <select name="gender" id="" class="form-control">
+                                <option value="Male">Male</option>
+                                {% if data.gender == "Female" %}
+                                <option value="Female" selected>Female</option>
+                                {% else %}
+                                <option value="Female">Female</option>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Occupation</label>
+                            <input type="text" name="occupation" class="form-control" value={{data.occupation}}>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>About</label>
+                            <textarea name="about" class="form-control" value={{data.about}}></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Profile Picture</label>
+                            <input type="file" class="form-control" name="image">
+                        </div>
+                        <div class="col-md-6 text-center py-4">
+                            <button type="submit" class="btn btn-primary" style="width:100%; border-radius:20px;">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock dashboard %}
